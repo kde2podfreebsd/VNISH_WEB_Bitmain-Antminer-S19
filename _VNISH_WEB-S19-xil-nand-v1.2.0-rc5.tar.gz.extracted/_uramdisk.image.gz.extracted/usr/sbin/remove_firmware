@@ -1,0 +1,28 @@
+#!/bin/sh
+#
+# Removes firmware completely from NAND
+#
+
+set -e
+
+ANTHILLOS=/mnt/nvdata/anthillos
+
+failure() { echo "$1";  exit 1; }
+
+echo "---- Removing firmware -----------------"
+
+echo "Restoring stock ramfs"
+if [ ! -f "$ANTHILLOS/ramfs.bak" ]; then
+	failure "Stock ramfs not found"
+fi
+
+flash_erase /dev/mtd1 0x0 0x100 >/dev/null 2>&1
+nandwrite -p -s 0x0 /dev/mtd1 "$ANTHILLOS/ramfs.bak" > /dev/null 2>&1
+
+echo "Cleaning filesystem"
+rm -rf "$ANTHILLOS"
+
+sync
+
+echo "Firmware successfully removed"
+reboot

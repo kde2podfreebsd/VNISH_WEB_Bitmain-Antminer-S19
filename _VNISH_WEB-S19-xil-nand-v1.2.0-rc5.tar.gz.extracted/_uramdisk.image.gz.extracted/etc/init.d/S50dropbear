@@ -1,0 +1,63 @@
+#!/bin/sh
+#
+# Starts dropbear sshd.
+#
+
+. /etc/init.d/conf-functions
+
+NAME=dropbear
+DAEMON=/usr/sbin/dropbear
+PIDFILE=/var/run/dropbear.pid
+DROPBEAR_CONF=/config/ssh.conf
+DROPBEAR_ARGS="-R"
+
+start() {
+	ENABLE=$(conf_get enable $DROPBEAR_CONF)
+	PORT=$(conf_get_int port $DROPBEAR_CONF)
+
+	[ "$ENABLE" != "true" ] && exit 0
+
+	if [ ! -z "$PORT" ]; then
+		DROPBEAR_ARGS="$DROPBEAR_ARGS -p $PORT"
+	fi
+
+	# Create symlink to store  SSH host keys
+	if [ -L /etc/dropbear \
+		 -a "$(readlink /etc/dropbear)" != "/mnt/data/etc/dropbear" ]
+	then
+		rm -f /etc/dropbear
+		ln -sf /mnt/data/etc/dropbear /etc/dropbear
+	fi
+
+	echo -n "Starting $NAME: "
+	umask 077
+
+	start-stop-daemon -S -q -p "$PIDFILE" \
+		-x $DAEMON -- $DROPBEAR_ARGS
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+
+stop() {
+	echo -n "Stopping $NAME: "
+	start-stop-daemon -K -q -p "$PIDFILE"
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+
+restart() {
+	stop
+	start
+}
+
+case "$1" in
+	start)
+  		start;;
+	stop)
+  		stop;;
+	restart|reload)
+  		restart;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac
+
+exit $?

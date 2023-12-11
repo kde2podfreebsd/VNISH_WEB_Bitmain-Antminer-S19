@@ -1,0 +1,114 @@
+{
+  "miner_model": "s19-126",
+  "chips_per_chain": 126,
+  "chain_num": 3,
+  "max_voltage": 1535,
+  "min_voltage": 1200,
+  "default_voltage": 1450,
+  "max_voltage_stock_psu": 1500,
+  "min_fan_pwm": 10,
+  "min_target_temp": 20,
+  "max_target_temp": 90,
+  "available_cooling_modes": "AllModes",
+  "basic_profiles_count": 14,
+  "profiles": [
+    {
+      "id": "1630",
+      "name": "1630 watt ~ 67 TH",
+      "freq": 360,
+      "volt": 12800
+    },
+    {
+      "id": "1780",
+      "name": "1780 watt ~ 71 TH",
+      "freq": 385,
+      "volt": 12900
+    },
+    {
+      "id": "1920",
+      "name": "1920 watt ~ 76 TH",
+      "freq": 410,
+      "volt": 13100
+    },
+    {
+      "id": "2103",
+      "name": "2103 watt ~ 81 TH",
+      "freq": 435,
+      "volt": 13300
+    },
+    {
+      "id": "2270",
+      "name": "2270 watt ~ 86 TH",
+      "freq": 460,
+      "volt": 13500
+    },
+    {
+      "id": "2475",
+      "name": "2475 watt ~ 91 TH",
+      "freq": 485,
+      "volt": 13700
+    },
+    {
+      "id": "2710",
+      "name": "2710 watt ~ 96 TH",
+      "freq": 510,
+      "volt": 13900
+    },
+    {
+      "id": "2900",
+      "name": "2900 watt ~ 101 TH",
+      "freq": 535,
+      "volt": 14100
+    },
+    {
+      "id": "3095",
+      "name": "3095 watt ~ 105 TH",
+      "freq": 560,
+      "volt": 14300
+    },
+    {
+      "id": "3310",
+      "name": "3310 watt ~ 110 TH",
+      "freq": 585,
+      "volt": 14500
+    },
+    {
+      "id": "3600",
+      "name": "3600 watt ~ 115 TH",
+      "freq": 610,
+      "volt": 14700
+    },
+    {
+      "id": "3900",
+      "name": "3900 watt ~ 120 TH LC",
+      "freq": 635,
+      "volt": 14900
+    },
+    {
+      "id": "4300",
+      "name": "4300 watt ~ 125 TH LC",
+      "freq": 660,
+      "volt": 15100
+    },
+    {
+      "id": "4700",
+      "name": "4700 watt ~ 130 TH LC",
+      "freq": 685,
+      "volt": 15300
+    }
+  ],
+  "min_freq": 50,
+  "max_freq": 1000,
+  "default_freq": 475,
+  "warn_freq": 480,
+  "default_fixed_fan_pwm": 100,
+  "default_target_chip_temp": 65,
+  "num_cores": 514,
+  "fan_min_count": {
+    "min": 1,
+    "max": 4,
+    "default": 4
+  },
+  "hr_measure": "GH/s",
+  "critical_chip_temp": 90
+}

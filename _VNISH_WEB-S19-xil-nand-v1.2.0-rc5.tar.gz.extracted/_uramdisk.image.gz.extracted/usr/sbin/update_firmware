@@ -1,0 +1,66 @@
+#!/bin/sh
+#
+# Unpacks, verifies and updates the firmware in NAND
+#
+
+FIRMWARE=$(realpath "$1")
+TMPDIR=/tmp/update.$$
+
+if [ -z "$FIRMWARE" ]; then
+	echo "Usage: $0 <firmware>"
+	exit 1
+fi
+
+if [ ! -f "$FIRMWARE" ]; then
+	echo "$FIRMWARE not found"
+	exit 1
+fi
+
+failure() { echo "$1";  exit 1; }
+
+verify_runme_signature() {
+	openssl dgst -sha256 -verify /etc/keys/master-public.pem \
+		-signature runme.sh.sig runme.sh > /dev/null 2>&1
+}
+
+# shellcheck disable=SC2317
+cleanup() {
+	echo "Cleaning up"
+	[ -f "$FIRMWARE" ] && rm -f "$FIRMWARE"
+	[ -d "$TMPDIR" ] && rm -rf "$TMPDIR"
+	echo "----------------------------------------"
+	sync
+}
+
+trap cleanup EXIT INT
+
+echo "---- Updating firmware -----------------"
+
+echo "Extracting firmware package"
+mkdir -p "$TMPDIR"
+tar xzf "$FIRMWARE" -C "$TMPDIR"
+rm -f "$FIRMWARE"
+
+cd "$TMPDIR" || failure "Unpacked firmware not found!"
+
+if [ ! -f runme.sh ]; then
+	failure "Unsupported fw update package, runme.sh not found"
+fi
+
+echo "Verifying runme.sh signature"
+if [ ! -f runme.sh.sig ]; then
+	failure "Signature of runme.sh not found"
+fi
+if ! verify_runme_signature; then
+	failure "Invalid signature of runme.sh"
+fi
+
+echo "Executing runme.sh"
+if ! sh runme.sh; then
+	failure "Firmware update failed"
+fi
+
+echo "Firmware successfully updated"
+sync
+
+exit 0

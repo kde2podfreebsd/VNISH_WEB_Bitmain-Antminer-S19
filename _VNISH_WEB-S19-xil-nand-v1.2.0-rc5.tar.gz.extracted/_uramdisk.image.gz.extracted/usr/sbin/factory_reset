@@ -1,0 +1,21 @@
+#!/bin/sh
+#
+# Removes all miner configs
+#
+
+DATA=/mnt/data
+CONF=/mnt/config
+
+echo "Removing previous configuration"
+
+if [ -f "$DATA/etc/shadow" ]; then
+	rm -f "$DATA/etc/shadow"
+fi
+
+# shellcheck disable=SC2115
+rm -rf "$CONF/*" > /dev/null
+
+echo "Please reboot to complete factory reset"
+sync
+
+

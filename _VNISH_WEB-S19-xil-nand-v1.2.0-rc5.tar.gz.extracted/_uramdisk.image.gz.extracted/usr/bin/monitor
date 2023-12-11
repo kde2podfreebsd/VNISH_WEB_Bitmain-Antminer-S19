@@ -1,0 +1,8 @@
+#!/bin/sh
+
+while true; do
+	sleep 30s
+	if ! pidof cgminer; then
+		/etc/init.d/S70miner restart
+	fi
+done

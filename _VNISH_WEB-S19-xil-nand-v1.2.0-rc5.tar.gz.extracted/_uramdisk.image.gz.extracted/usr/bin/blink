@@ -1,0 +1,43 @@
+#!/bin/sh
+#
+# Blink red and green leds sequentially
+#
+
+# Red led (GPIO941)
+if [ ! -d /sys/class/gpio/gpio941 ]; then
+	echo 941 > /sys/class/gpio/export
+	echo out > /sys/class/gpio/gpio941/direction
+	echo 0 > /sys/class/gpio/gpio941/value
+fi
+
+# Green led (GPIO942)
+if [ ! -d /sys/class/gpio/gpio942 ]; then
+	echo 942 > /sys/class/gpio/export
+	echo out > /sys/class/gpio/gpio942/direction
+	echo 0 > /sys/class/gpio/gpio942/value
+fi
+
+cleanup() {
+	echo 0 > /sys/class/gpio/gpio941/value
+	echo 0 > /sys/class/gpio/gpio942/value
+	exit 0
+}
+
+trap cleanup TERM INT
+
+while true; do
+        sleep 1.0
+        for _ in 1 2 3; do
+                echo 1 > /sys/class/gpio/gpio941/value
+                sleep 0.4
+                echo 0 > /sys/class/gpio/gpio941/value
+                sleep 0.4
+        done
+
+        for _ in 1 2 3; do
+                echo 1 > /sys/class/gpio/gpio942/value
+                sleep 0.4
+                echo 0 > /sys/class/gpio/gpio942/value
+                sleep 0.4
+        done
+done

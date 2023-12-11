@@ -1,0 +1,144 @@
+{
+  "miner_model": "s19j-plus",
+  "chips_per_chain": 108,
+  "chain_num": 3,
+  "max_voltage": 1535,
+  "min_voltage": 1200,
+  "default_voltage": 1260,
+  "max_voltage_stock_psu": 1500,
+  "min_fan_pwm": 10,
+  "min_target_temp": 20,
+  "max_target_temp": 90,
+  "available_cooling_modes": "AllModes",
+  "basic_profiles_count": 19,
+  "profiles": [
+    {
+      "id": "2340",
+      "name": "2340 watt ~ 74 TH",
+      "freq": 450,
+      "volt": 12400
+    },
+    {
+      "id": "2520",
+      "name": "2520 watt ~ 78 TH",
+      "freq": 475,
+      "volt": 12500
+    },
+    {
+      "id": "2674",
+      "name": "2674 watt ~ 82 TH",
+      "freq": 500,
+      "volt": 12600
+    },
+    {
+      "id": "2800",
+      "name": "2800 watt ~ 86 TH",
+      "freq": 525,
+      "volt": 12700
+    },
+    {
+      "id": "3043",
+      "name": "3043 watt ~ 90 TH",
+      "freq": 550,
+      "volt": 12900
+    },
+    {
+      "id": "3200",
+      "name": "3200 watt ~ 94 TH",
+      "freq": 575,
+      "volt": 13000
+    },
+    {
+      "id": "3375",
+      "name": "3375 watt ~ 99 TH",
+      "freq": 600,
+      "volt": 13100
+    },
+    {
+      "id": "3609",
+      "name": "3609 watt ~ 103 TH",
+      "freq": 625,
+      "volt": 13200
+    },
+    {
+      "id": "3855",
+      "name": "3855 watt ~ 107 TH",
+      "freq": 650,
+      "volt": 13300
+    },
+    {
+      "id": "4050",
+      "name": "4050 watt ~ 111 TH",
+      "freq": 675,
+      "volt": 13400
+    },
+    {
+      "id": "4300",
+      "name": "4300 watt ~ 115 TH",
+      "freq": 700,
+      "volt": 13500
+    },
+    {
+      "id": "4550",
+      "name": "4550 watt ~ 119 TH",
+      "freq": 725,
+      "volt": 13600
+    },
+    {
+      "id": "4800",
+      "name": "4800 watt ~ 154 TH",
+      "freq": 750,
+      "volt": 13700
+    },
+    {
+      "id": "5100",
+      "name": "5100 watt ~ 158 TH",
+      "freq": 775,
+      "volt": 13900
+    },
+    {
+      "id": "5450",
+      "name": "5450 watt ~ 132 TH",
+      "freq": 800,
+      "volt": 14100
+    },
+    {
+      "id": "5800",
+      "name": "5800 watt ~ 136 TH",
+      "freq": 825,
+      "volt": 14300
+    },
+    {
+      "id": "6200",
+      "name": "6200 watt ~ 140 TH",
+      "freq": 850,
+      "volt": 14500
+    },
+    {
+      "id": "6600",
+      "name": "6600 watt ~ 144 TH",
+      "freq": 875,
+      "volt": 14700
+    },
+    {
+      "id": "7000",
+      "name": "7000 watt ~ 148 TH",
+      "freq": 900,
+      "volt": 14900
+    }
+  ],
+  "min_freq": 50,
+  "max_freq": 1000,
+  "default_freq": 575,
+  "warn_freq": 580,
+  "default_fixed_fan_pwm": 100,
+  "default_target_chip_temp": 65,
+  "num_cores": 514,
+  "fan_min_count": {
+    "min": 1,
+    "max": 4,
+    "default": 4
+  },
+  "hr_measure": "GH/s",
+  "critical_chip_temp": 90
+}

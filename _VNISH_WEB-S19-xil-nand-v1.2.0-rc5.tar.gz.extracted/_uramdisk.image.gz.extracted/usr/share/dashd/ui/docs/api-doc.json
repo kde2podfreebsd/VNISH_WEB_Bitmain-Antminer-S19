@@ -1,0 +1,3719 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "xminer-api",
+    "description": "",
+    "contact": {
+      "name": "anthill.farm",
+      "email": "support@anthill.farm"
+    },
+    "license": {
+      "name": ""
+    },
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "/api/v1",
+      "description": "Current miner API"
+    }
+  ],
+  "paths": {
+    "/activate-warranty": {
+      "post": {
+        "tags": [
+          "warranty"
+        ],
+        "summary": "Warranty activate",
+        "description": "Warranty activate",
+        "operationId": "warrantyActivate",
+        "responses": {
+          "200": {
+            "description": "Warranty was successfully activated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WarrantyStatus"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Config save error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/apikeys": {
+      "get": {
+        "tags": [
+          "apikeys"
+        ],
+        "summary": "Get apikeys",
+        "description": "Get apikeys",
+        "operationId": "apikeysGet",
+        "responses": {
+          "200": {
+            "description": "Key deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Key delete error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "apikeys"
+        ],
+        "summary": "Add api key",
+        "description": "Add api key",
+        "operationId": "apikeysAdd",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddApikeyQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Api key was added successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AddApiKeyRes"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/apikeys/delete": {
+      "post": {
+        "tags": [
+          "apikeys"
+        ],
+        "summary": "Delete api key",
+        "description": "Delete api key",
+        "operationId": "apikeysDelete",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteApikeyQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Key deleted successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Key delete error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/auth-check": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Auth Check",
+        "description": "Auth Check",
+        "operationId": "authCheck",
+        "responses": {
+          "200": {
+            "description": "Authorized"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/autotune/presets": {
+      "get": {
+        "tags": [
+          "autotune"
+        ],
+        "summary": "Get autotune preset list",
+        "description": "Get autotune preset list",
+        "operationId": "autotunePresets",
+        "responses": {
+          "200": {
+            "description": "Autotune preset list read successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AutotunePresets"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Config save error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/autotune/reset": {
+      "post": {
+        "tags": [
+          "autotune"
+        ],
+        "summary": "Autotune reset list of profiles",
+        "description": "Autotune reset list of profiles",
+        "operationId": "autotuneReset",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutotuneReset"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Reset list of autotune profiles done successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Config save error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/autotune/reset-all": {
+      "post": {
+        "tags": [
+          "autotune"
+        ],
+        "summary": "Autotune reset all profiles",
+        "description": "Autotune reset all profiles",
+        "operationId": "autotuneResetAll",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AutotuneResetAll"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Reset all autotune profiles done successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Config save error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/cancel-warranty": {
+      "post": {
+        "tags": [
+          "warranty"
+        ],
+        "summary": "Warranty cancel",
+        "description": "Warranty cancel",
+        "operationId": "warrantyCancel",
+        "responses": {
+          "200": {
+            "description": "Warranty canceled successfully, or was not provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WarrantyStatus"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Config save error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/chips": {
+      "get": {
+        "tags": [
+          "other"
+        ],
+        "summary": "Save miner settings",
+        "description": "Save miner settings",
+        "operationId": "getChips",
+        "responses": {
+          "200": {
+            "description": "Chips read successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AntmChainsChipsStats"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Config save error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/cloning": {
+      "post": {
+        "tags": [
+          "other"
+        ],
+        "summary": "Cloning",
+        "description": "Cloning",
+        "operationId": "cloning",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CloningQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Cloning done successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CloningResult"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Cloning error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/firmware/remove": {
+      "post": {
+        "tags": [
+          "firmware"
+        ],
+        "summary": "Remove firmware and boot from stock",
+        "description": "Remove firmware and boot from stock",
+        "operationId": "firmwareRemove",
+        "responses": {
+          "200": {
+            "description": "Firmware was successfully removed. System will reboot after",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RebootAfter"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "This model has no 'remove firmware'",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Firmware remove error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/firmware/update": {
+      "post": {
+        "tags": [
+          "firmware"
+        ],
+        "summary": "Update firmware",
+        "description": "Update firmware",
+        "operationId": "firmwareUpdate",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaFirmwareUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Firmware update successfully. System will reboot after",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RebootAfter"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Firmware update error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/info": {
+      "get": {
+        "tags": [
+          "other"
+        ],
+        "summary": "Get miner info",
+        "description": "Get miner info",
+        "operationId": "getInfo",
+        "responses": {
+          "200": {
+            "description": "Miner Info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InfoJson"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/layout": {
+      "get": {
+        "tags": [
+          "other"
+        ],
+        "summary": "Layout",
+        "description": "Layout",
+        "operationId": "layout",
+        "responses": {
+          "200": {
+            "description": "Dashboard elements layout",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "allOf": [
+                    {
+                      "$ref": "#/components/schemas/Layout"
+                    }
+                  ],
+                  "nullable": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lock": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Lock miner",
+        "description": "Lock miner",
+        "operationId": "lock",
+        "responses": {
+          "200": {
+            "description": "Session dropped"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/lock/others": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Lock miner",
+        "description": "Lock miner",
+        "operationId": "lock",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnlockScreenBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Other sessions dropped"
+          },
+          "400": {
+            "description": "Wrong password"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/logs/{log_type}": {
+      "get": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Read log file",
+        "description": "Read log file",
+        "operationId": "logsGet",
+        "parameters": [
+          {
+            "name": "log_type",
+            "in": "path",
+            "description": "Log type name. All logs `*` are not implemented for this route",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/LogType"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Log file was read successfully"
+          },
+          "500": {
+            "description": "Clean logs error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/logs/{log_type}/clear": {
+      "post": {
+        "tags": [
+          "logs"
+        ],
+        "summary": "Clear logs",
+        "description": "Clear logs",
+        "operationId": "logsClear",
+        "parameters": [
+          {
+            "name": "log_type",
+            "in": "path",
+            "description": "Log type",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/LogType"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Logs was cleared successfully"
+          },
+          "500": {
+            "description": "Clean logs error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/metrics": {
+      "get": {
+        "tags": [
+          "metrics"
+        ],
+        "summary": "Get metrics",
+        "description": "Get metrics",
+        "operationId": "metrics",
+        "parameters": [
+          {
+            "name": "time_slice",
+            "in": "query",
+            "description": "Amount of seconds until now. Max is 3 days (3 * 24 * 60 * 60) Default is 1 day (24 * 60 * 60)",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "step",
+            "in": "query",
+            "description": "Resample step in seconds to count average, default is 15 min (15 * 60)",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "until",
+            "in": "query",
+            "description": "Pet id",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Config saved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetricsReply"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Config save error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/mining/pause": {
+      "post": {
+        "tags": [
+          "mining"
+        ],
+        "summary": "Mining pause",
+        "description": "Mining pause",
+        "operationId": "miningPause",
+        "responses": {
+          "200": {
+            "description": "Mining paused"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Mining pause error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/mining/restart": {
+      "post": {
+        "tags": [
+          "mining"
+        ],
+        "summary": "Mining restart",
+        "description": "Mining restart",
+        "operationId": "miningRestart",
+        "responses": {
+          "200": {
+            "description": "Mining restart"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Mining restart error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/mining/resume": {
+      "post": {
+        "tags": [
+          "mining"
+        ],
+        "summary": "Mining resume",
+        "description": "Mining resume",
+        "operationId": "miningResume",
+        "responses": {
+          "200": {
+            "description": "Mining resumed"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Mining resume error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/mining/start": {
+      "post": {
+        "tags": [
+          "mining"
+        ],
+        "summary": "Mining start",
+        "description": "Mining start",
+        "operationId": "miningStart",
+        "responses": {
+          "200": {
+            "description": "Mining started"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Mining start error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/mining/stop": {
+      "post": {
+        "tags": [
+          "mining"
+        ],
+        "summary": "Mining stop",
+        "description": "Mining stop",
+        "operationId": "miningStop",
+        "responses": {
+          "200": {
+            "description": "Mining stopped"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Mining stop error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/mining/switch-pool": {
+      "post": {
+        "tags": [
+          "mining"
+        ],
+        "summary": "Mining switch pool",
+        "description": "Mining switch pool",
+        "operationId": "miningSwitchPool",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SwitchPoolQuery"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Pool was switched successfully"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Mining switch-pool error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/settings": {
+      "get": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Get all miner settings",
+        "description": "Get all miner settings",
+        "operationId": "settingsGet",
+        "responses": {
+          "200": {
+            "description": "Config read successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ViewConfig"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Config read error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "apikeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Save miner settings",
+        "description": "Save miner settings",
+        "operationId": "settingsSave",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InputConfig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Config saved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SaveConfigResult"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Config save error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/settings/backup": {
+      "post": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Settings backup",
+        "description": "Settings backup",
+        "operationId": "settingsBackup",
+        "responses": {
+          "200": {
+            "description": "Backup binary",
+            "content": {
+              "application/octet-stream": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/settings/factory-reset": {
+      "post": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Settings factory reset",
+        "description": "Settings factory reset",
+        "operationId": "settingsFactoryReset",
+        "responses": {
+          "200": {
+            "description": "Settings factory reset done successfully. System will reboot after",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RebootAfter"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/settings/restore": {
+      "post": {
+        "tags": [
+          "settings"
+        ],
+        "summary": "Settings restore",
+        "description": "Settings restore",
+        "operationId": "settingsRestore",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/SchemaSettingsRestore"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Firmware restored successfully. System will reboot after",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RebootAfter"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Miner have warranty. Cancel warranty first"
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/status": {
+      "get": {
+        "tags": [
+          "other"
+        ],
+        "summary": "Get status",
+        "description": "Get status",
+        "operationId": "status",
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StatusPane"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/summary": {
+      "get": {
+        "tags": [
+          "other"
+        ],
+        "summary": "Summary",
+        "description": "Summary",
+        "operationId": "summary",
+        "responses": {
+          "200": {
+            "description": "Chips read successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SummaryAntmMinerStats"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Config save error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrDescr"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {},
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/system/reboot": {
+      "post": {
+        "tags": [
+          "system"
+        ],
+        "summary": "System reboot",
+        "description": "System reboot",
+        "operationId": "systemReboot",
+        "responses": {
+          "200": {
+            "description": "System reboot after",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RebootAfter"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          },
+          {
+            "apikeyAuth": []
+          }
+        ]
+      }
+    },
+    "/unlock": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "Auth Check",
+        "description": "Auth Check",
+        "operationId": "unlock",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UnlockScreenBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Authorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UnlockSuccess"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Wrong password"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AddApiKeyRes": {
+        "type": "string",
+        "enum": [
+          "inserted",
+          "updated",
+          "nochanges"
+        ]
+      },
+      "AddApikeyQuery": {
+        "$ref": "#/components/schemas/ApiKeysJsonItem"
+      },
+      "AdvancedSettings": {
+        "type": "object",
+        "properties": {
+          "asic_boost": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "bitmain_disable_volt_comp": {
+            "type": "boolean",
+            "description": "Disable voltage compensation feature",
+            "nullable": true
+          },
+          "disable_chain_break_protection": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "disable_restart_unbalanced": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "higher_volt_offset": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Higher voltage offset during initialization stage",
+            "nullable": true,
+            "minimum": 0
+          },
+          "max_restart_attempts": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "minimum": 0
+          },
+          "quick_start": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "restart_hashrate": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Percent, `0` to disable",
+            "nullable": true,
+            "maximum": 100,
+            "minimum": 0
+          },
+          "restart_temp": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "minimum": 0
+          },
+          "tuner_bad_chip_hr_threshold": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Autotuning: hashrate threshold below which the chips are marked as bad ones",
+            "nullable": true,
+            "minimum": 0
+          }
+        }
+      },
+      "AntmChain": {
+        "type": "object",
+        "required": [
+          "id",
+          "frequency",
+          "voltage",
+          "power_consumption",
+          "hashrate_ideal",
+          "hashrate_rt",
+          "hashrate_percentage",
+          "hr_error",
+          "hw_errors",
+          "pcb_temp",
+          "chip_temp",
+          "chip_statuses",
+          "status"
+        ],
+        "properties": {
+          "chip_statuses": {
+            "$ref": "#/components/schemas/ChainChipStatuses"
+          },
+          "chip_temp": {
+            "$ref": "#/components/schemas/TempRange"
+          },
+          "frequency": {
+            "type": "number",
+            "format": "float"
+          },
+          "hashrate_ideal": {
+            "type": "number",
+            "format": "float"
+          },
+          "hashrate_percentage": {
+            "type": "number",
+            "format": "float"
+          },
+          "hashrate_rt": {
+            "type": "number",
+            "format": "float"
+          },
+          "hr_error": {
+            "type": "number",
+            "format": "float"
+          },
+          "hw_errors": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "pcb_temp": {
+            "$ref": "#/components/schemas/TempRange"
+          },
+          "power_consumption": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ChainStatus"
+          },
+          "voltage": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "AntmChainChipsStats": {
+        "type": "object",
+        "required": [
+          "id",
+          "chips"
+        ],
+        "properties": {
+          "chips": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AntmiChipStats"
+            }
+          },
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "AntmChainsChipsStats": {
+        "type": "object",
+        "required": [
+          "chips_per_chain",
+          "chains"
+        ],
+        "properties": {
+          "chains": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AntmChainChipsStats"
+            }
+          },
+          "chips_per_chain": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "AntmMinerStats": {
+        "type": "object",
+        "required": [
+          "miner_status",
+          "miner_type",
+          "average_hashrate",
+          "instant_hashrate",
+          "hr_realtime",
+          "hr_average",
+          "pcb_temp",
+          "chip_temp",
+          "power_consumption",
+          "power_usage",
+          "power_efficiency",
+          "hw_errors_percent",
+          "hr_error",
+          "hw_errors",
+          "devfee_percent",
+          "devfee",
+          "pools",
+          "cooling",
+          "chains",
+          "found_blocks",
+          "best_share"
+        ],
+        "properties": {
+          "average_hashrate": {
+            "type": "number",
+            "format": "float",
+            "description": "Deprecated. Same as hr_average but measure is MG/s.",
+            "deprecated": true
+          },
+          "best_share": {
+            "type": "integer",
+            "format": "int64",
+            "minimum": 0
+          },
+          "chains": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AntmChain"
+            }
+          },
+          "chip_temp": {
+            "$ref": "#/components/schemas/TempRange"
+          },
+          "cooling": {
+            "$ref": "#/components/schemas/Cooling"
+          },
+          "devfee": {
+            "type": "number",
+            "format": "float"
+          },
+          "devfee_percent": {
+            "type": "number",
+            "format": "float"
+          },
+          "found_blocks": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "hr_average": {
+            "type": "number",
+            "format": "float"
+          },
+          "hr_error": {
+            "type": "number",
+            "format": "float",
+            "description": "Errors rate"
+          },
+          "hr_realtime": {
+            "type": "number",
+            "format": "float"
+          },
+          "hw_errors": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hw_errors_percent": {
+            "type": "number",
+            "format": "float"
+          },
+          "instant_hashrate": {
+            "type": "number",
+            "format": "float",
+            "description": "Deprecated. Same as hr_realtime but measure is MG/s.",
+            "deprecated": true
+          },
+          "miner_status": {
+            "$ref": "#/components/schemas/MinerStatus"
+          },
+          "miner_type": {
+            "type": "string"
+          },
+          "pcb_temp": {
+            "$ref": "#/components/schemas/TempRange"
+          },
+          "pools": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PoolStats"
+            }
+          },
+          "power_consumption": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "power_efficiency": {
+            "type": "number",
+            "format": "float"
+          },
+          "power_usage": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Deprecated. Same as power_efficiency",
+            "deprecated": true
+          }
+        }
+      },
+      "AntmiChipStats": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "hashrate",
+          "freq",
+          "errors"
+        ],
+        "properties": {
+          "errors": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "freq": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "hashrate": {
+            "type": "number",
+            "format": "float"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sensor": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/TempSensor"
+              }
+            ],
+            "nullable": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/ChipGrade"
+          }
+        }
+      },
+      "ApiKeysJson": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ApiKeysJsonItem"
+        }
+      },
+      "ApiKeysJsonItem": {
+        "type": "object",
+        "required": [
+          "key",
+          "description"
+        ],
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "key": {
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32
+          }
+        }
+      },
+      "Apikey": {
+        "type": "string"
+      },
+      "AutotunePresetStatus": {
+        "type": "string",
+        "description": "Preset status. `tuned` means that preset tuned successfully",
+        "enum": [
+          "untuned",
+          "tuned"
+        ]
+      },
+      "AutotunePresets": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/AutotunePresetsItem"
+        }
+      },
+      "AutotunePresetsItem": {
+        "type": "object",
+        "required": [
+          "name",
+          "pretty",
+          "status",
+          "modded_psu_required"
+        ],
+        "properties": {
+          "modded_psu_required": {
+            "type": "boolean"
+          },
+          "name": {
+            "type": "string",
+            "description": "Preset name"
+          },
+          "pretty": {
+            "type": "string"
+          },
+          "status": {
+            "$ref": "#/components/schemas/AutotunePresetStatus"
+          }
+        }
+      },
+      "AutotuneReset": {
+        "type": "object",
+        "required": [
+          "presets",
+          "restart"
+        ],
+        "properties": {
+          "presets": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "restart": {
+            "type": "boolean"
+          }
+        }
+      },
+      "AutotuneResetAll": {
+        "type": "object",
+        "required": [
+          "restart"
+        ],
+        "properties": {
+          "restart": {
+            "type": "boolean"
+          }
+        }
+      },
+      "Chain": {
+        "type": "object",
+        "properties": {
+          "chips": {
+            "type": "array",
+            "items": {
+              "type": "integer",
+              "format": "int32",
+              "minimum": 0
+            },
+            "description": "An array of per chip `freq` settings values.\n`0` (zero) value means that value used from `chain` settings",
+            "nullable": true
+          },
+          "disabled": {
+            "type": "boolean",
+            "description": "Chain `disabled` settings value",
+            "nullable": true
+          },
+          "freq": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Chain `freq` settings values.\n`0` (zero) value means that value used from `globals` settings",
+            "nullable": true,
+            "minimum": 0
+          }
+        }
+      },
+      "ChainChipStatuses": {
+        "type": "object",
+        "required": [
+          "red",
+          "orange",
+          "grey"
+        ],
+        "properties": {
+          "grey": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "orange": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "red": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          }
+        }
+      },
+      "ChainState": {
+        "type": "string",
+        "enum": [
+          "initializing",
+          "mining",
+          "stopped",
+          "failure",
+          "disconnected",
+          "disabled",
+          "unknown"
+        ]
+      },
+      "ChainStatus": {
+        "type": "object",
+        "required": [
+          "state"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "state": {
+            "$ref": "#/components/schemas/ChainState"
+          }
+        }
+      },
+      "ChipGrade": {
+        "type": "string",
+        "enum": [
+          "grey",
+          "orange",
+          "red"
+        ]
+      },
+      "CloningConfig": {
+        "type": "object",
+        "description": "A stripped version of config",
+        "properties": {
+          "layout": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Layout"
+              }
+            ],
+            "nullable": true
+          },
+          "miner": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MinerConfig"
+              }
+            ],
+            "nullable": true
+          },
+          "network": {
+            "nullable": true
+          },
+          "password": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PasswordChange"
+              }
+            ],
+            "nullable": true
+          },
+          "regional": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RegionalSettings"
+              }
+            ],
+            "nullable": true
+          },
+          "ssh": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SshAccessConfig"
+              }
+            ],
+            "nullable": true
+          },
+          "ui": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UiSettings"
+              }
+            ],
+            "nullable": true
+          }
+        }
+      },
+      "CloningQuery": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/UnlockScreenBody"
+          },
+          {
+            "type": "object",
+            "required": [
+              "start_addr",
+              "end_addr"
+            ],
+            "properties": {
+              "addr_list": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "description": "If present and non-empty then start_ end_ addr params will be ignored.\nMainly for debug/testing purposes"
+              },
+              "config": {
+                "$ref": "#/components/schemas/CloningConfig"
+              },
+              "end_addr": {
+                "type": "string",
+                "format": "ipv4"
+              },
+              "find_miner": {
+                "type": "boolean",
+                "description": "Flag to switch find_miner function on target devices. Optional, default `false`",
+                "nullable": true
+              },
+              "mining": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/MiningActions"
+                  }
+                ],
+                "nullable": true
+              },
+              "port": {
+                "type": "integer",
+                "format": "int32",
+                "description": "If present then target devices default port (80) will be overridden.\nMainly for debug/testing purposes",
+                "nullable": true,
+                "minimum": 0
+              },
+              "start_addr": {
+                "type": "string",
+                "format": "ipv4"
+              }
+            }
+          }
+        ]
+      },
+      "CloningResult": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "status",
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "$ref": "#/components/schemas/SuccessCloningResult"
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "success"
+                ]
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "status",
+              "data"
+            ],
+            "properties": {
+              "data": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SuccessCloningResult"
+                  },
+                  {
+                    "type": "object",
+                    "required": [
+                      "fail_reason"
+                    ],
+                    "properties": {
+                      "fail_reason": {
+                        "$ref": "#/components/schemas/FailReason"
+                      }
+                    }
+                  }
+                ]
+              },
+              "status": {
+                "type": "string",
+                "enum": [
+                  "fail"
+                ]
+              }
+            }
+          }
+        ],
+        "discriminator": {
+          "propertyName": "status"
+        }
+      },
+      "Consts": {
+        "type": "object",
+        "required": [
+          "cooling",
+          "overclock",
+          "timezones"
+        ],
+        "properties": {
+          "cooling": {
+            "$ref": "#/components/schemas/Cooling"
+          },
+          "overclock": {
+            "$ref": "#/components/schemas/Overclock"
+          },
+          "timezones": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/Timezone"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              }
+            },
+            "description": "Available timezones list.\nA purpose for this field is to display timezones list in UI.\nMakes sense for GET queries only and shall ignored for UPDATE queries."
+          }
+        }
+      },
+      "Cooling": {
+        "type": "object",
+        "required": [
+          "fan_num",
+          "fans",
+          "settings",
+          "fan_duty"
+        ],
+        "properties": {
+          "fan_duty": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fan_num": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "fans": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Fan"
+            }
+          },
+          "settings": {
+            "$ref": "#/components/schemas/FanSettings"
+          }
+        }
+      },
+      "CoolingSettings": {
+        "type": "object",
+        "properties": {
+          "fan_min_count": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "minimum": 0
+          },
+          "fan_min_duty": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "minimum": 0
+          },
+          "mode": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Mode"
+              }
+            ],
+            "nullable": true
+          }
+        }
+      },
+      "DeleteApikeyQuery": {
+        "type": "object",
+        "required": [
+          "key"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "maxLength": 32,
+            "minLength": 32
+          }
+        }
+      },
+      "DevfeeRegion": {
+        "type": "string",
+        "enum": [
+          "auto",
+          "eu",
+          "us",
+          "cn",
+          "reserve"
+        ]
+      },
+      "DevfeeSettings": {
+        "type": "object",
+        "required": [
+          "region"
+        ],
+        "properties": {
+          "region": {
+            "$ref": "#/components/schemas/DevfeeRegion"
+          }
+        }
+      },
+      "DiagReportQueryInput": {
+        "type": "object",
+        "required": [
+          "issue"
+        ],
+        "properties": {
+          "issue": {
+            "type": "string",
+            "description": "Issue text. Max 16KB"
+          }
+        }
+      },
+      "ErrDescr": {
+        "type": "object",
+        "required": [
+          "err"
+        ],
+        "properties": {
+          "err": {
+            "type": "string"
+          }
+        }
+      },
+      "FailReason": {
+        "type": "string",
+        "enum": [
+          "wrong_password",
+          "connection_error",
+          "other"
+        ]
+      },
+      "Fan": {
+        "type": "object",
+        "required": [
+          "id",
+          "rpm",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "rpm": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/FanStatus"
+          }
+        }
+      },
+      "FanMode": {
+        "type": "string",
+        "enum": [
+          "manual",
+          "immersion",
+          "auto"
+        ]
+      },
+      "FanSettings": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "mode"
+            ],
+            "properties": {
+              "mode": {
+                "type": "object",
+                "required": [
+                  "name"
+                ],
+                "properties": {
+                  "name": {
+                    "$ref": "#/components/schemas/FanMode"
+                  }
+                }
+              }
+            }
+          }
+        ]
+      },
+      "FanStatus": {
+        "type": "string",
+        "enum": [
+          "ok",
+          "lost"
+        ]
+      },
+      "FwInfo": {
+        "type": "object",
+        "required": [
+          "miner",
+          "model",
+          "fw_name",
+          "fw_version",
+          "platform",
+          "install_type",
+          "build_time"
+        ],
+        "properties": {
+          "build_time": {
+            "type": "string",
+            "description": "Build time"
+          },
+          "fw_name": {
+            "type": "string",
+            "description": "Firmware name"
+          },
+          "fw_version": {
+            "type": "string",
+            "description": "Firmware version"
+          },
+          "install_type": {
+            "$ref": "#/components/schemas/InstallType"
+          },
+          "miner": {
+            "type": "string",
+            "description": "Pretty miner name"
+          },
+          "model": {
+            "type": "string",
+            "description": "Miner model code"
+          },
+          "platform": {
+            "$ref": "#/components/schemas/Platform"
+          }
+        }
+      },
+      "Globals": {
+        "type": "object",
+        "properties": {
+          "freq": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "minimum": 0
+          },
+          "volt": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "minimum": 0
+          }
+        }
+      },
+      "HotelFee": {
+        "type": "object",
+        "required": [
+          "enable",
+          "pool"
+        ],
+        "properties": {
+          "enable": {
+            "type": "boolean"
+          },
+          "pool": {
+            "$ref": "#/components/schemas/HotelFeePool"
+          }
+        }
+      },
+      "HotelFeePool": {
+        "type": "object",
+        "required": [
+          "url",
+          "worker",
+          "percent"
+        ],
+        "properties": {
+          "percent": {
+            "type": "number",
+            "format": "float"
+          },
+          "url": {
+            "type": "string"
+          },
+          "worker": {
+            "type": "string"
+          }
+        }
+      },
+      "HrMeasure": {
+        "type": "string",
+        "enum": [
+          "GH/s",
+          "MH/s"
+        ]
+      },
+      "InfoJson": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/FwInfo"
+          },
+          {
+            "type": "object",
+            "required": [
+              "hr_measure"
+            ],
+            "properties": {
+              "hr_measure": {
+                "$ref": "#/components/schemas/HrMeasure"
+              },
+              "system": {
+                "allOf": [
+                  {
+                    "$ref": "#/components/schemas/SystemInfo"
+                  }
+                ],
+                "nullable": true
+              }
+            }
+          }
+        ]
+      },
+      "InputConfig": {
+        "type": "object",
+        "properties": {
+          "layout": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Layout"
+              }
+            ],
+            "nullable": true
+          },
+          "miner": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/MinerConfig"
+              }
+            ],
+            "nullable": true
+          },
+          "network": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/InputNetworkConfFile"
+              }
+            ],
+            "nullable": true
+          },
+          "password": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PasswordChange"
+              }
+            ],
+            "nullable": true
+          },
+          "regional": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/RegionalSettings"
+              }
+            ],
+            "nullable": true
+          },
+          "ssh": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SshAccessConfig"
+              }
+            ],
+            "nullable": true
+          },
+          "ui": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UiSettings"
+              }
+            ],
+            "nullable": true
+          }
+        }
+      },
+      "InputNetworkConfFile": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/NetworkConfFile"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "enable_network_check": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      },
+      "InstallType": {
+        "type": "string",
+        "description": "Install type code sd|nand",
+        "enum": [
+          "sd",
+          "nand"
+        ]
+      },
+      "Layout": {
+        "type": "object",
+        "properties": {
+          "lg": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "md": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "sm": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "xs": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          },
+          "xxs": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            },
+            "nullable": true
+          }
+        }
+      },
+      "Locale": {
+        "type": "string",
+        "enum": [
+          "ru",
+          "en"
+        ]
+      },
+      "LogType": {
+        "type": "string",
+        "description": "Log type name, `*` for all log types",
+        "enum": [
+          "status",
+          "miner",
+          "autotune",
+          "system",
+          "messages",
+          "api",
+          "*"
+        ]
+      },
+      "MetricAnnotation": {
+        "type": "object",
+        "required": [
+          "type"
+        ],
+        "properties": {
+          "chain_id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true,
+            "minimum": 0
+          },
+          "type": {
+            "$ref": "#/components/schemas/MinerEvent"
+          }
+        }
+      },
+      "MetricsData": {
+        "type": "object",
+        "required": [
+          "hashrate",
+          "pcb_max_temp",
+          "chip_max_temp",
+          "fan_duty"
+        ],
+        "properties": {
+          "chip_max_temp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fan_duty": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hashrate": {
+            "type": "number",
+            "format": "double"
+          },
+          "pcb_max_temp": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "MetricsReply": {
+        "type": "object",
+        "required": [
+          "timezone",
+          "metrics",
+          "annotations"
+        ],
+        "properties": {
+          "annotations": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TimeRecordMetricAnnotation"
+            }
+          },
+          "metrics": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TimeRecordMetricsData"
+            }
+          },
+          "timezone": {
+            "$ref": "#/components/schemas/Timezone"
+          }
+        }
+      },
+      "MinerConfig": {
+        "type": "object",
+        "properties": {
+          "cooling": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/CoolingSettings"
+              }
+            ],
+            "nullable": true
+          },
+          "devfee": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/DevfeeSettings"
+              }
+            ],
+            "nullable": true
+          },
+          "hotel_fee": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/HotelFee"
+              }
+            ],
+            "nullable": true
+          },
+          "misc": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AdvancedSettings"
+              }
+            ],
+            "nullable": true
+          },
+          "overclock": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OverclockSettings"
+              }
+            ],
+            "nullable": true
+          },
+          "pools": {
+            "type": "array",
+            "items": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Pool"
+                },
+                {
+                  "$ref": "#/components/schemas/Pool"
+                },
+                {
+                  "$ref": "#/components/schemas/Pool"
+                }
+              ]
+            },
+            "nullable": true
+          }
+        }
+      },
+      "MinerEvent": {
+        "type": "string",
+        "enum": [
+          "start",
+          "stop",
+          "restart",
+          "reboot",
+          "overheat",
+          "disable_chain",
+          "enable_chain"
+        ]
+      },
+      "MinerState": {
+        "type": "string",
+        "enum": [
+          "mining",
+          "initializing",
+          "starting",
+          "auto-tuning",
+          "restarting",
+          "shutting-down",
+          "stopped",
+          "failure"
+        ]
+      },
+      "MinerStatus": {
+        "type": "object",
+        "required": [
+          "miner_state",
+          "miner_state_time"
+        ],
+        "properties": {
+          "description": {
+            "type": "string",
+            "description": "Optional. Description if status is failure",
+            "nullable": true
+          },
+          "miner_state": {
+            "$ref": "#/components/schemas/MinerState"
+          },
+          "miner_state_time": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Time spent in the current state.\nFor now implemented for `mining` state only."
+          }
+        }
+      },
+      "MiningActions": {
+        "type": "string",
+        "description": "One of mining control actions",
+        "enum": [
+          "stop",
+          "start",
+          "restart"
+        ]
+      },
+      "Mode": {
+        "oneOf": [
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "param"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "enum": [
+                  "auto"
+                ]
+              },
+              "param": {
+                "type": "integer",
+                "format": "int32",
+                "minimum": 0
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "name",
+              "param"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "enum": [
+                  "manual"
+                ]
+              },
+              "param": {
+                "type": "integer",
+                "format": "int32",
+                "minimum": 0
+              }
+            }
+          },
+          {
+            "type": "object",
+            "required": [
+              "name"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "enum": [
+                  "immers"
+                ]
+              }
+            }
+          }
+        ],
+        "discriminator": {
+          "propertyName": "name"
+        }
+      },
+      "NetworkConfFile": {
+        "type": "object",
+        "required": [
+          "hostname",
+          "dhcp",
+          "ipaddress",
+          "netmask",
+          "gateway",
+          "dnsservers"
+        ],
+        "properties": {
+          "dhcp": {
+            "type": "boolean"
+          },
+          "dnsservers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "gateway": {
+            "type": "string"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "ipaddress": {
+            "type": "string"
+          },
+          "netmask": {
+            "type": "string"
+          }
+        }
+      },
+      "NetworkStatus": {
+        "type": "object",
+        "required": [
+          "mac",
+          "ip",
+          "netmask",
+          "gateway",
+          "dns",
+          "hostname"
+        ],
+        "properties": {
+          "dhcp": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "dns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "gateway": {
+            "type": "string"
+          },
+          "hostname": {
+            "type": "string"
+          },
+          "ip": {
+            "type": "string"
+          },
+          "mac": {
+            "type": "string"
+          },
+          "netmask": {
+            "type": "string"
+          }
+        }
+      },
+      "Overclock": {
+        "type": "object",
+        "required": [
+          "max_voltage",
+          "min_voltage",
+          "default_voltage",
+          "max_freq",
+          "min_freq",
+          "default_freq",
+          "warn_freq",
+          "max_voltage_stock_psu"
+        ],
+        "properties": {
+          "default_freq": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "default_voltage": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "max_freq": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "max_voltage": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "max_voltage_stock_psu": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "min_freq": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "min_voltage": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "warn_freq": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          }
+        }
+      },
+      "OverclockSettings": {
+        "type": "object",
+        "properties": {
+          "chains": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Chain"
+            },
+            "nullable": true
+          },
+          "globals": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Globals"
+              }
+            ],
+            "nullable": true
+          },
+          "modded_psu": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "preset": {
+            "type": "string",
+            "description": "Profile name",
+            "nullable": true
+          },
+          "preset_switcher": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PresetSwitcher"
+              }
+            ],
+            "nullable": true
+          }
+        }
+      },
+      "PasswordChange": {
+        "type": "object",
+        "required": [
+          "current",
+          "pw"
+        ],
+        "properties": {
+          "current": {
+            "type": "string"
+          },
+          "pw": {
+            "type": "string"
+          }
+        }
+      },
+      "Platform": {
+        "type": "string",
+        "description": "Platform type code xil|bb|aml (Xilinx/BeagleBone/Amlogic)",
+        "enum": [
+          "xil",
+          "bb",
+          "aml"
+        ]
+      },
+      "Pool": {
+        "type": "object",
+        "required": [
+          "url",
+          "user",
+          "pass"
+        ],
+        "properties": {
+          "pass": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          }
+        }
+      },
+      "PoolStats": {
+        "type": "object",
+        "required": [
+          "id",
+          "url",
+          "pool_type",
+          "user",
+          "status",
+          "asic_boost",
+          "diff",
+          "accepted",
+          "rejected",
+          "stale",
+          "ls_diff",
+          "ls_time",
+          "diffa",
+          "ping"
+        ],
+        "properties": {
+          "accepted": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "asic_boost": {
+            "type": "boolean"
+          },
+          "diff": {
+            "type": "string"
+          },
+          "diffa": {
+            "type": "number",
+            "format": "double"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "ls_diff": {
+            "type": "number",
+            "format": "float"
+          },
+          "ls_time": {
+            "type": "string"
+          },
+          "ping": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "pool_type": {
+            "$ref": "#/components/schemas/PoolType"
+          },
+          "rejected": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "stale": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "status": {
+            "$ref": "#/components/schemas/PoolStatus"
+          },
+          "url": {
+            "type": "string"
+          },
+          "user": {
+            "type": "string"
+          }
+        }
+      },
+      "PoolStatus": {
+        "type": "string",
+        "enum": [
+          "offline",
+          "working",
+          "disabled",
+          "active",
+          "rejecting",
+          "unknown"
+        ]
+      },
+      "PoolType": {
+        "type": "string",
+        "enum": [
+          "UserPool",
+          "DevFee",
+          "HotelFee",
+          "Refund"
+        ]
+      },
+      "PresetSwitcher": {
+        "type": "object",
+        "description": "PresetSwitcher settings",
+        "properties": {
+          "enabled": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "top_preset": {
+            "type": "string",
+            "description": "Profile name. Max profile that preset_switcher can switch",
+            "nullable": true
+          }
+        }
+      },
+      "RebootAfter": {
+        "type": "object",
+        "required": [
+          "after"
+        ],
+        "properties": {
+          "after": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Number of seconds after the system will reboot",
+            "minimum": 0
+          }
+        }
+      },
+      "RegionalSettings": {
+        "type": "object",
+        "required": [
+          "timezone"
+        ],
+        "properties": {
+          "timezone": {
+            "$ref": "#/components/schemas/TimezoneSettings"
+          }
+        }
+      },
+      "SaveConfigResult": {
+        "type": "object",
+        "description": "Apply config result",
+        "required": [
+          "restart_required",
+          "reboot_required"
+        ],
+        "properties": {
+          "reboot_required": {
+            "type": "boolean",
+            "description": "Miner restart required to apply"
+          },
+          "restart_required": {
+            "type": "boolean",
+            "description": "Miner restart required to apply config"
+          }
+        }
+      },
+      "SchemaBoolEnum": {
+        "type": "string",
+        "enum": [
+          "true",
+          "false"
+        ]
+      },
+      "SchemaFirmwareUpdate": {
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary"
+          },
+          "keep_settings": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/SchemaBoolEnum"
+              }
+            ],
+            "nullable": true
+          }
+        }
+      },
+      "SchemaSettingsRestore": {
+        "type": "object",
+        "required": [
+          "file"
+        ],
+        "properties": {
+          "file": {
+            "type": "string",
+            "format": "binary"
+          }
+        }
+      },
+      "SshAccessConfig": {
+        "type": "object",
+        "required": [
+          "enabled",
+          "port"
+        ],
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "port": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          }
+        }
+      },
+      "StatusPane": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/MinerStatus"
+          },
+          {
+            "$ref": "#/components/schemas/SaveConfigResult"
+          },
+          {
+            "type": "object",
+            "required": [
+              "find_miner",
+              "unlocked"
+            ],
+            "properties": {
+              "find_miner": {
+                "type": "boolean",
+                "description": "Flag to switch find_miner function on target devices. Optional, default `false`"
+              },
+              "unlocked": {
+                "type": "boolean",
+                "description": "Show screen-lock status (checks that  any of auth methods satisfies)"
+              },
+              "warranty": {
+                "$ref": "#/components/schemas/Warranty"
+              }
+            }
+          }
+        ]
+      },
+      "SuccessCloningResult": {
+        "type": "object",
+        "required": [
+          "total",
+          "version",
+          "hostname"
+        ],
+        "properties": {
+          "addr": {
+            "type": "string",
+            "format": "ipv4",
+            "nullable": true
+          },
+          "config_upload": {
+            "type": "boolean",
+            "description": "If `true` then config was successfuly uploaded on target device",
+            "nullable": true
+          },
+          "custom_fw": {
+            "type": "boolean",
+            "description": "A purpose of this field's is unknown by api's author yet",
+            "nullable": true
+          },
+          "hostname": {
+            "type": "string",
+            "description": "Target device's hostname (may be empty if can't retrieve)"
+          },
+          "restart": {
+            "type": "boolean",
+            "description": "Non-null value. Means did miner was or was not restarted on target device\nthat were depends on whether miner was able or not to apply uploaded config\nwithout restart and also by a stop_miner flag value",
+            "nullable": true
+          },
+          "total": {
+            "type": "integer",
+            "description": "Total job size (address range size)",
+            "minimum": 0
+          },
+          "version": {
+            "type": "string",
+            "description": "Target device's miner version (may be empty if can't retrieve)"
+          }
+        }
+      },
+      "SummaryAntmMinerStats": {
+        "type": "object",
+        "properties": {
+          "miner": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/AntmMinerStats"
+              }
+            ],
+            "nullable": true
+          }
+        }
+      },
+      "SwitchPoolQuery": {
+        "type": "object",
+        "required": [
+          "pool_id"
+        ],
+        "properties": {
+          "pool_id": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          }
+        }
+      },
+      "SystemInfo": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/SystemMem"
+          },
+          {
+            "type": "object",
+            "required": [
+              "os",
+              "miner_name",
+              "file_system_version",
+              "network_status",
+              "uptime"
+            ],
+            "properties": {
+              "file_system_version": {
+                "type": "string"
+              },
+              "miner_name": {
+                "type": "string"
+              },
+              "network_status": {
+                "$ref": "#/components/schemas/NetworkStatus"
+              },
+              "os": {
+                "type": "string"
+              },
+              "uptime": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "SystemMem": {
+        "type": "object",
+        "required": [
+          "mem_total",
+          "mem_free",
+          "mem_free_percent",
+          "mem_buf",
+          "mem_buf_percent"
+        ],
+        "properties": {
+          "mem_buf": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "mem_buf_percent": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "mem_free": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "mem_free_percent": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          },
+          "mem_total": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0
+          }
+        }
+      },
+      "TempRange": {
+        "type": "object",
+        "required": [
+          "min",
+          "max"
+        ],
+        "properties": {
+          "max": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "min": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "TempSensor": {
+        "type": "object",
+        "required": [
+          "status",
+          "pcb_temp",
+          "chip_temp"
+        ],
+        "properties": {
+          "chip_temp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pcb_temp": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/TempSensorStatus"
+          }
+        }
+      },
+      "TempSensorStatus": {
+        "type": "string",
+        "enum": [
+          "init",
+          "ready",
+          "measure",
+          "error",
+          "unknown"
+        ]
+      },
+      "TimeRecordMetricAnnotation": {
+        "type": "object",
+        "required": [
+          "time",
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MetricAnnotation"
+          },
+          "time": {
+            "type": "integer",
+            "format": "int64",
+            "description": "UNIX time"
+          }
+        }
+      },
+      "TimeRecordMetricsData": {
+        "type": "object",
+        "required": [
+          "time",
+          "data"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/MetricsData"
+          },
+          "time": {
+            "type": "integer",
+            "format": "int64",
+            "description": "UNIX time"
+          }
+        }
+      },
+      "Timezone": {
+        "type": "string",
+        "description": "Current timezone name (code)",
+        "enum": [
+          "GMT+1",
+          "GMT+2",
+          "GMT+3",
+          "GMT+4",
+          "GMT+5",
+          "GMT+6",
+          "GMT+7",
+          "GMT+8",
+          "GMT+9",
+          "GMT+10",
+          "GMT+11",
+          "GMT+12",
+          "GMT",
+          "GMT-1",
+          "GMT-2",
+          "GMT-3",
+          "GMT-4",
+          "GMT-5",
+          "GMT-6",
+          "GMT-7",
+          "GMT-8",
+          "GMT-9",
+          "GMT-10",
+          "GMT-11"
+        ]
+      },
+      "TimezoneSettings": {
+        "type": "object",
+        "required": [
+          "current"
+        ],
+        "properties": {
+          "current": {
+            "$ref": "#/components/schemas/Timezone"
+          }
+        }
+      },
+      "UiSettings": {
+        "type": "object",
+        "properties": {
+          "consts": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Consts"
+              }
+            ],
+            "nullable": true
+          },
+          "dark_side_pane": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "disable_animation": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "locale": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Locale"
+              }
+            ],
+            "nullable": true
+          },
+          "theme": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/UiTheme"
+              }
+            ],
+            "nullable": true
+          },
+          "timezone": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Timezone"
+              }
+            ],
+            "nullable": true
+          }
+        }
+      },
+      "UiTheme": {
+        "type": "string",
+        "enum": [
+          "light",
+          "dark",
+          "auto"
+        ]
+      },
+      "UnlockScreenBody": {
+        "type": "object",
+        "required": [
+          "pw"
+        ],
+        "properties": {
+          "pw": {
+            "type": "string",
+            "description": "Target device(s) password"
+          }
+        }
+      },
+      "UnlockSuccess": {
+        "type": "object",
+        "required": [
+          "token"
+        ],
+        "properties": {
+          "token": {
+            "type": "string"
+          }
+        }
+      },
+      "ViewConfig": {
+        "type": "object",
+        "required": [
+          "miner",
+          "ui",
+          "regional",
+          "network",
+          "ssh"
+        ],
+        "properties": {
+          "layout": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Layout"
+              }
+            ],
+            "nullable": true
+          },
+          "miner": {
+            "$ref": "#/components/schemas/MinerConfig"
+          },
+          "network": {
+            "$ref": "#/components/schemas/NetworkConfFile"
+          },
+          "password": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/PasswordChange"
+              }
+            ],
+            "nullable": true
+          },
+          "regional": {
+            "$ref": "#/components/schemas/RegionalSettings"
+          },
+          "ssh": {
+            "$ref": "#/components/schemas/SshAccessConfig"
+          },
+          "ui": {
+            "$ref": "#/components/schemas/UiSettings"
+          }
+        }
+      },
+      "Warranty": {
+        "type": "string",
+        "enum": [
+          "active",
+          "inactive",
+          "expired",
+          "cancelled",
+          "not_provided"
+        ]
+      },
+      "WarrantyStatus": {
+        "type": "object",
+        "required": [
+          "success"
+        ],
+        "properties": {
+          "success": {
+            "type": "boolean"
+          },
+          "warranty": {
+            "$ref": "#/components/schemas/Warranty"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "apikeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "x-api-key"
+      },
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

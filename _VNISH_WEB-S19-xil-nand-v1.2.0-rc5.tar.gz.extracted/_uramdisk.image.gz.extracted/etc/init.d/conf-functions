@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# Utility functions for parsing .conf files
+#
+
+conf_get() {
+	echo $(awk -F= "/^$1/ {print \$2}" $2)
+}
+
+conf_get_int() {
+	local val=$(conf_get $1 $2)
+	echo "${val//[^0-9]/}"
+}
+
+conf_get_hostname() {
+	local val=$(conf_get $1 $2)
+	echo "${val//[^A-Za-z0-9-]/}"
+}
+
+conf_get_ip() {
+	local val=$(conf_get $1 $2)
+	echo "$val" | grep -E '^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$'
+}
+
+conf_get_ip_list() {
+	local val=$(conf_get $1 $2 | sed 's/\ /,/g;s/\"//g')
+	echo "$val" | grep -E '^([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3},?)*$'
+}
+
+gen_mac_addr() {
+	head -c 6 /dev/urandom | xxd -p -c 6 \
+		| sed 's/\(..\)/\1:/g; s/^\(.\)[13579bdf]/\10/; s/:$//'
+}

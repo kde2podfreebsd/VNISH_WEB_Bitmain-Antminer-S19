@@ -1,0 +1,9 @@
+{
+    "fw_name": "Vnish",
+    "fw_version": "1.2.0-rc5",
+    "miner": "Antminer S19",
+    "model": "s19",
+    "platform": "xil",
+    "install_type": "nand",
+    "build_time": "2023-09-10 09:22:01"
+}

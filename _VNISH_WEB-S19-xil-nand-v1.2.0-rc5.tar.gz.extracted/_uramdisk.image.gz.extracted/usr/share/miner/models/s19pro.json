@@ -1,0 +1,108 @@
+{
+  "miner_model": "s19pro",
+  "chips_per_chain": 114,
+  "chain_num": 3,
+  "max_voltage": 1535,
+  "min_voltage": 1200,
+  "default_voltage": 1260,
+  "max_voltage_stock_psu": 1500,
+  "min_fan_pwm": 10,
+  "min_target_temp": 20,
+  "max_target_temp": 90,
+  "available_cooling_modes": "AllModes",
+  "basic_profiles_count": 13,
+  "profiles": [
+    {
+      "id": "2450",
+      "name": "2450 watt ~ 80 TH",
+      "freq": 385,
+      "volt": 12400
+    },
+    {
+      "id": "2600",
+      "name": "2600 watt ~ 84 TH",
+      "freq": 410,
+      "volt": 12400
+    },
+    {
+      "id": "2750",
+      "name": "2750 watt ~ 89 TH",
+      "freq": 435,
+      "volt": 12500
+    },
+    {
+      "id": "2900",
+      "name": "2900 watt ~ 94 TH",
+      "freq": 460,
+      "volt": 12600
+    },
+    {
+      "id": "3100",
+      "name": "3100 watt ~ 100 TH",
+      "freq": 485,
+      "volt": 12700
+    },
+    {
+      "id": "3300",
+      "name": "3300 watt ~ 105 TH",
+      "freq": 510,
+      "volt": 12800
+    },
+    {
+      "id": "3500",
+      "name": "3500 watt ~ 110 TH",
+      "freq": 535,
+      "volt": 12900
+    },
+    {
+      "id": "3800",
+      "name": "3800 watt ~ 121 TH",
+      "freq": 585,
+      "volt": 13200
+    },
+    {
+      "id": "4300",
+      "name": "4300 watt ~ 132 TH",
+      "freq": 635,
+      "volt": 13500
+    },
+    {
+      "id": "4800",
+      "name": "4800 watt ~ 141 TH",
+      "freq": 685,
+      "volt": 13800
+    },
+    {
+      "id": "5400",
+      "name": "5400 watt ~ 145 TH LC",
+      "freq": 735,
+      "volt": 14000
+    },
+    {
+      "id": "5800",
+      "name": "5800 watt ~ 153 TH LC",
+      "freq": 760,
+      "volt": 14300
+    },
+    {
+      "id": "6200",
+      "name": "6200 watt ~ 161 TH LC",
+      "freq": 785,
+      "volt": 14500
+    }
+  ],
+  "min_freq": 50,
+  "max_freq": 1000,
+  "default_freq": 525,
+  "warn_freq": 800,
+  "default_fixed_fan_pwm": 100,
+  "default_target_chip_temp": 65,
+  "num_cores": 623,
+  "fan_min_count": {
+    "min": 1,
+    "max": 4,
+    "default": 4
+  },
+  "hr_measure": "GH/s",
+  "critical_chip_temp": 90
+}

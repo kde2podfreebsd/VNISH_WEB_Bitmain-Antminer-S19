@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# Supervises cgminer process
+#
+
+NAME=monitor
+DAEMON=/usr/bin/monitor
+PIDFILE=/var/run/$NAME.pid
+
+test -x "$DAEMON" || exit 0
+
+start() {
+	printf "Starting %s: " $NAME
+	start-stop-daemon -S -q -b -m -p "$PIDFILE" -x $DAEMON
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+
+stop() {
+	printf "Stopping %s: " $NAME
+	start-stop-daemon -K -q -p "$PIDFILE"
+	[ $? = 0 ] && echo "OK" || echo "FAIL"
+}
+
+restart() {
+	stop
+	start
+}
+
+case "$1" in
+	start|stop|restart)
+		"$1";;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac

@@ -1,0 +1,102 @@
+{
+  "miner_model": "s19jpro-a",
+  "chips_per_chain": 126,
+  "chain_num": 3,
+  "max_voltage": 1535,
+  "min_voltage": 1200,
+  "default_voltage": 1380,
+  "max_voltage_stock_psu": 1500,
+  "min_fan_pwm": 10,
+  "min_target_temp": 20,
+  "max_target_temp": 90,
+  "available_cooling_modes": "AllModes",
+  "basic_profiles_count": 12,
+  "profiles": [
+    {
+      "id": "1850",
+      "name": "1850 watt ~ 76 TH",
+      "freq": 406,
+      "volt": 12800
+    },
+    {
+      "id": "2000",
+      "name": "2000 watt ~ 80 TH",
+      "freq": 421,
+      "volt": 13000
+    },
+    {
+      "id": "2700",
+      "name": "2700 watt ~ 96 TH",
+      "freq": 510,
+      "volt": 13200
+    },
+    {
+      "id": "2970",
+      "name": "2970 watt ~ 100 TH",
+      "freq": 535,
+      "volt": 13300
+    },
+    {
+      "id": "3080",
+      "name": "3080 watt ~ 104 TH",
+      "freq": 560,
+      "volt": 13400
+    },
+    {
+      "id": "3320",
+      "name": "3320 watt ~ 110 TH",
+      "freq": 585,
+      "volt": 13500
+    },
+    {
+      "id": "3580",
+      "name": "3580 watt ~ 115 TH",
+      "freq": 610,
+      "volt": 13600
+    },
+    {
+      "id": "3670",
+      "name": "3670 watt ~ 120 TH",
+      "freq": 635,
+      "volt": 13700
+    },
+    {
+      "id": "3850",
+      "name": "3850 watt ~ 125 TH",
+      "freq": 660,
+      "volt": 13800
+    },
+    {
+      "id": "4110",
+      "name": "4110 watt ~ 130 TH",
+      "freq": 685,
+      "volt": 14000
+    },
+    {
+      "id": "4620",
+      "name": "4620 watt ~ 135 TH",
+      "freq": 710,
+      "volt": 14200
+    },
+    {
+      "id": "4880",
+      "name": "4880 watt ~ 140 TH",
+      "freq": 735,
+      "volt": 14400
+    }
+  ],
+  "min_freq": 50,
+  "max_freq": 1000,
+  "default_freq": 525,
+  "warn_freq": 800,
+  "default_fixed_fan_pwm": 100,
+  "default_target_chip_temp": 65,
+  "num_cores": 514,
+  "fan_min_count": {
+    "min": 1,
+    "max": 4,
+    "default": 4
+  },
+  "hr_measure": "GH/s",
+  "critical_chip_temp": 90
+}

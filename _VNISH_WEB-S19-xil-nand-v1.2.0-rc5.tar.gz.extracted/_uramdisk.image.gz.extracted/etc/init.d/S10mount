@@ -1,0 +1,113 @@
+#!/bin/sh
+#
+# Mounts /mnt/config and /mnt/data to the corresponding NAND partitions
+#
+
+mount_nvdata() {
+	printf "Mounting /mnt/nvdata: "
+	mkdir -p /mnt/nvdata
+	{ ubiattach -d 0 -m 6 && mount -t ubifs ubi0_0 /mnt/nvdata ; } \
+		> /dev/null 2>&1
+	status=$?
+	if [ $status -eq 0 ]; then
+		echo "OK"
+	else
+		echo "FAIL"
+	fi
+	return $status
+}
+
+umount_nvdata() {
+	printf "Unmounting /mnt/nvdata: "
+	{ umount /mnt/nvdata && ubidetach -d 0 ; } \
+		> /dev/null 2>&1
+	status=$?
+	if [ $status -eq 0 ]; then
+		echo "OK"
+	else
+		echo "FAIL"
+	fi
+	return $status
+}
+
+mount_config() {
+	printf "Mounting /mnt/config: "
+	mkdir -p /mnt/config
+	mkdir -p /mnt/nvdata/anthillos/config
+	mount --bind /mnt/nvdata/anthillos/config /mnt/config
+	status=$?
+	if [ $status -eq 0 ]; then
+		echo "OK"
+	else
+		echo "FAIL"
+	fi
+	return $status
+}
+
+umount_config() {
+	printf "Unmounting /mnt/config: "
+	umount /mnt/config
+	status=$?
+	if [ $status -eq 0 ]; then
+		echo "OK"
+	else
+		echo "FAIL"
+	fi
+	return $status
+}
+
+create_data_dirs() {
+	mkdir -p /mnt/data/opt
+	mkdir -p /mnt/data/etc/dropbear
+	mkdir -p /mnt/data/var/lib
+
+	# Don't store logs and metrics in NAND
+	mkdir -p /tmp/log
+	ln -snf /tmp/log /var/log
+	mkdir -p /tmp/dashd
+	ln -snf /tmp/dashd /var/lib/dashd
+}
+
+mount_data() {
+	printf "Mounting /mnt/data: "
+	mkdir -p /mnt/data
+	mkdir -p /mnt/nvdata/anthillos/data
+	mount --bind /mnt/nvdata/anthillos/data /mnt/data
+	status=$?
+	create_data_dirs
+	if [ $status -eq 0 ]; then
+		echo "OK"
+	else
+		echo "FAIL"
+	fi
+	return $status
+}
+
+umount_data() {
+ 	printf "Unmounting /mnt/data: "
+ 	umount /mnt/data
+	status=$?
+	if [ $status -eq 0 ]; then
+		echo "OK"
+	else
+		echo "FAIL"
+	fi
+	return $status
+}
+
+case "$1" in
+	start)
+		mount_nvdata
+		mount_data
+		mount_config
+		;;
+	stop)
+		sync
+		umount_config
+		umount_data
+		umount_nvdata
+		;;
+	*)
+		echo "Usage: $0 {start|stop}"
+		exit 1
+esac

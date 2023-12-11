@@ -1,0 +1,52 @@
+#!/bin/sh
+#
+# Sets the configured timezone from /config/system.conf
+#
+
+. /etc/init.d/conf-functions
+
+SYSTEM_CONF=/config/system.conf
+
+posix_timezone() {
+	local tz
+
+	# Sanitize timezone string
+	tz=$(echo "$1" | grep -E "^GMT([-+][0-9]{1,2})?$")
+
+	if [ -z "$tz" ]; then
+		echo "GMT"
+		return
+	fi
+
+	case "$tz" in
+		GMT-*)
+			echo "<$tz>+${tz//GMT-/}";;
+		GMT+*)
+			echo "<$tz>-${tz//GMT+/}";;
+		*)
+			echo "GMT";;
+	esac
+}
+
+config_timezone() {
+	local zone="GMT"
+
+	echo -n "Configuring timezone: "
+
+	if [ -f $SYSTEM_CONF ]; then
+		zone=$(conf_get timezone $SYSTEM_CONF)
+	fi
+
+	posix_timezone "$zone" > /etc/timezone
+	echo "OK"
+}
+
+case "$1" in
+	start|restart)
+		config_timezone;;
+	stop)
+		:;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac

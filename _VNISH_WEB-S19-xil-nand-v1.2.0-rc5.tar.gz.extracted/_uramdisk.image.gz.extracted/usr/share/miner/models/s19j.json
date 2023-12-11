@@ -1,0 +1,84 @@
+{
+  "miner_model": "s19j",
+  "chips_per_chain": 108,
+  "chain_num": 3,
+  "max_voltage": 1535,
+  "min_voltage": 1200,
+  "default_voltage": 1260,
+  "max_voltage_stock_psu": 1500,
+  "min_fan_pwm": 10,
+  "min_target_temp": 20,
+  "max_target_temp": 90,
+  "available_cooling_modes": "AllModes",
+  "basic_profiles_count": 9,
+  "profiles": [
+    {
+      "id": "3050",
+      "name": "3050 watt ~ 82 TH",
+      "freq": 510,
+      "volt": 12700
+    },
+    {
+      "id": "3250",
+      "name": "3250 watt ~ 86 TH",
+      "freq": 535,
+      "volt": 12800
+    },
+    {
+      "id": "3450",
+      "name": "3450 watt ~ 90 TH",
+      "freq": 560,
+      "volt": 12900
+    },
+    {
+      "id": "3650",
+      "name": "3650 watt ~ 94 TH",
+      "freq": 585,
+      "volt": 13000
+    },
+    {
+      "id": "3900",
+      "name": "3900 watt ~ 98 TH",
+      "freq": 610,
+      "volt": 13100
+    },
+    {
+      "id": "4100",
+      "name": "4100 watt ~ 103 TH LC",
+      "freq": 635,
+      "volt": 13200
+    },
+    {
+      "id": "4400",
+      "name": "4400 watt ~ 107 TH LC",
+      "freq": 660,
+      "volt": 13300
+    },
+    {
+      "id": "4700",
+      "name": "4700 watt ~ 111 TH LC",
+      "freq": 685,
+      "volt": 13400
+    },
+    {
+      "id": "4900",
+      "name": "4900 watt ~ 114 TH LC",
+      "freq": 710,
+      "volt": 13500
+    }
+  ],
+  "min_freq": 50,
+  "max_freq": 1000,
+  "default_freq": 575,
+  "warn_freq": 800,
+  "default_fixed_fan_pwm": 100,
+  "default_target_chip_temp": 65,
+  "num_cores": 514,
+  "fan_min_count": {
+    "min": 1,
+    "max": 4,
+    "default": 4
+  },
+  "hr_measure": "GH/s",
+  "critical_chip_temp": 90
+}

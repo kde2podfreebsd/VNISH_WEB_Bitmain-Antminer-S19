@@ -1,0 +1,90 @@
+{
+  "miner_model": "s19a",
+  "chips_per_chain": 72,
+  "chain_num": 3,
+  "max_voltage": 1535,
+  "min_voltage": 1200,
+  "default_voltage": 1250,
+  "max_voltage_stock_psu": 1500,
+  "min_fan_pwm": 10,
+  "min_target_temp": 20,
+  "max_target_temp": 90,
+  "available_cooling_modes": "AllModes",
+  "basic_profiles_count": 10,
+  "profiles": [
+    {
+      "id": "2100",
+      "name": "2100 watt ~ 80 TH",
+      "freq": 605,
+      "volt": 12400
+    },
+    {
+      "id": "2300",
+      "name": "2300 watt ~ 83 TH",
+      "freq": 630,
+      "volt": 12400
+    },
+    {
+      "id": "2500",
+      "name": "2500 watt ~ 86 TH",
+      "freq": 655,
+      "volt": 12550
+    },
+    {
+      "id": "2710",
+      "name": "2710 watt ~ 90 TH",
+      "freq": 680,
+      "volt": 12700
+    },
+    {
+      "id": "2850",
+      "name": "2850 watt ~ 93 TH",
+      "freq": 705,
+      "volt": 12800
+    },
+    {
+      "id": "3000",
+      "name": "3000 watt ~ 96 TH",
+      "freq": 730,
+      "volt": 12900
+    },
+    {
+      "id": "3150",
+      "name": "3150 watt ~ 100 TH",
+      "freq": 755,
+      "volt": 13000
+    },
+    {
+      "id": "3320",
+      "name": "3320 watt ~ 103 TH",
+      "freq": 780,
+      "volt": 13100
+    },
+    {
+      "id": "3460",
+      "name": "3460 watt ~ 106 TH LC",
+      "freq": 805,
+      "volt": 13200
+    },
+    {
+      "id": "3640",
+      "name": "3640 watt ~ 110 TH LC",
+      "freq": 830,
+      "volt": 13300
+    }
+  ],
+  "min_freq": 50,
+  "max_freq": 1000,
+  "default_freq": 720,
+  "warn_freq": 850,
+  "default_fixed_fan_pwm": 100,
+  "default_target_chip_temp": 65,
+  "num_cores": 623,
+  "fan_min_count": {
+    "min": 1,
+    "max": 4,
+    "default": 4
+  },
+  "hr_measure": "GH/s",
+  "critical_chip_temp": 90
+}

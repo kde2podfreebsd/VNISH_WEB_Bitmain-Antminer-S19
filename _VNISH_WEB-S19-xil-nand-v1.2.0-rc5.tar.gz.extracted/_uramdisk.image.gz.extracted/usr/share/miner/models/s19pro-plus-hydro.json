@@ -1,0 +1,127 @@
+{
+  "miner_model": "s19pro-plus-hydro",
+  "chips_per_chain": 180,
+  "chain_num": 4,
+  "max_voltage": 2160,
+  "min_voltage": 1700,
+  "default_voltage": 1850,
+  "max_voltage_stock_psu": 2160,
+  "min_fan_pwm": 10,
+  "min_target_temp": 20,
+  "max_target_temp": 90,
+  "available_cooling_modes": "ImmersOnly",
+  "basic_profiles_count": 17,
+  "profiles": [
+    {
+      "id": "2965",
+      "name": "2965 watt ~ 126 TH",
+      "freq": 355,
+      "volt": 18800
+    },
+    {
+      "id": "2980",
+      "name": "2980 watt ~ 132 TH",
+      "freq": 370,
+      "volt": 18800
+    },
+    {
+      "id": "3350",
+      "name": "3350 watt ~ 137 TH",
+      "freq": 385,
+      "volt": 18850
+    },
+    {
+      "id": "3560",
+      "name": "3560 watt ~ 143 TH",
+      "freq": 400,
+      "volt": 18950
+    },
+    {
+      "id": "3750",
+      "name": "3750 watt ~ 147 TH",
+      "freq": 415,
+      "volt": 19100
+    },
+    {
+      "id": "3890",
+      "name": "3890 watt ~ 153 TH",
+      "freq": 430,
+      "volt": 19200
+    },
+    {
+      "id": "4085",
+      "name": "4085 watt ~ 158 TH",
+      "freq": 445,
+      "volt": 19300
+    },
+    {
+      "id": "4320",
+      "name": "4320 watt ~ 164 TH",
+      "freq": 460,
+      "volt": 19400
+    },
+    {
+      "id": "4500",
+      "name": "4500 watt ~ 170 TH",
+      "freq": 475,
+      "volt": 19500
+    },
+    {
+      "id": "4650",
+      "name": "4650 watt ~ 175 TH",
+      "freq": 490,
+      "volt": 19650
+    },
+    {
+      "id": "4980",
+      "name": "4980 watt ~ 181 TH",
+      "freq": 505,
+      "volt": 19750
+    },
+    {
+      "id": "5160",
+      "name": "5160 watt ~ 186 TH",
+      "freq": 520,
+      "volt": 19850
+    },
+    {
+      "id": "5350",
+      "name": "5350 watt ~ 192 TH",
+      "freq": 535,
+      "volt": 20000
+    },
+    {
+      "id": "5580",
+      "name": "5580 watt ~ 197 TH",
+      "freq": 550,
+      "volt": 20200
+    },
+    {
+      "id": "5870",
+      "name": "5870 watt ~ 203 TH",
+      "freq": 565,
+      "volt": 20300
+    },
+    {
+      "id": "6190",
+      "name": "6190 watt ~ 208 TH LC",
+      "freq": 580,
+      "volt": 20400
+    },
+    {
+      "id": "6500",
+      "name": "6500 watt ~ 213 TH LC",
+      "freq": 595,
+      "volt": 20550
+    }
+  ],
+  "min_freq": 50,
+  "max_freq": 1000,
+  "default_freq": 405,
+  "warn_freq": 800,
+  "default_fixed_fan_pwm": 100,
+  "default_target_chip_temp": 65,
+  "num_cores": 514,
+  "hr_measure": "GH/s",
+  "critical_chip_temp": 90
+}

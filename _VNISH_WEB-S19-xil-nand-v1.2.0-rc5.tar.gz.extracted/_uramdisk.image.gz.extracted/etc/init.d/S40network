@@ -1,0 +1,107 @@
+#!/bin/sh
+#
+# Start the network....
+#
+
+. /etc/init.d/conf-functions
+
+NETWORK_CONF=/config/network.conf
+MAC_CONF=/config/mac
+INTERFACES=/etc/network/interfaces
+RESOLV_CONF=/etc/resolv.conf
+
+read_mac_addr() {
+	if [ -f "$1" ]; then
+		cat "$1" | grep -E '^([0-9A-Fa-f]{2}:?){6}$'
+	fi
+}
+
+update_network_settings() {
+	HOSTNAME=$(conf_get_hostname hostname $NETWORK_CONF)
+	DHCP=$(conf_get dhcp $NETWORK_CONF)
+	MAC=$(read_mac_addr $MAC_CONF)
+
+	if [ ! -z "$HOSTNAME" ]; then
+		hostname "$HOSTNAME"
+	fi
+
+	if [ -z "$MAC" ]; then
+		# Something went wrong, assign temporary MAC address
+		MAC=$(gen_mac_addr)
+	fi
+
+	if [ "$DHCP" = "true" -o ! -f $NETWORK_CONF ]; then
+		cat <<- EOF > $INTERFACES
+		# Interface file auto-generated from $NETWORK_CONF
+		auto lo
+		iface lo inet loopback
+
+		auto eth0
+		iface eth0 inet dhcp
+		  pre-up /etc/network/nfs_check
+		  wait-delay 15
+		  hostname \$(hostname)
+		  hwaddress ether $MAC
+		EOF
+	else
+		IPADDRESS=$(conf_get_ip ipaddress $NETWORK_CONF)
+		NETMASK=$(conf_get_ip netmask $NETWORK_CONF)
+		GATEWAY=$(conf_get_ip gateway $NETWORK_CONF)
+		DNSSERVERS=$(conf_get_ip_list dnsservers $NETWORK_CONF)
+		OLDIFS=$IFS
+
+		cat <<- EOF > $INTERFACES
+		# Interface file auto-generated from $NETWORK_CONF
+		auto lo
+		iface lo inet loopback
+
+		auto eth0
+		iface eth0 inet static
+		  pre-up /etc/network/nfs_check
+		  wait-delay 15
+		  address $IPADDRESS
+		  netmask $NETMASK
+		  hwaddress ether $MAC
+		  gateway $GATEWAY
+		EOF
+
+		echo "# Auto-generated from $NETWORK_CONF" > $RESOLV_CONF
+		IFS=,
+		for ns in $DNSSERVERS; do
+			echo "nameserver $ns" >> $RESOLV_CONF
+		done
+		IFS=$OLDIFS
+	fi
+}
+
+# Debian ifupdown needs the /run/network lock directory
+mkdir -p /run/network
+
+# Generate unique MAC address
+if [ ! -f "$MAC_CONF" ]; then
+	gen_mac_addr > $MAC_CONF
+fi
+
+case "$1" in
+	start)
+		printf "Starting network: "
+		update_network_settings
+		/sbin/ifup -a
+		[ $? = 0 ] && echo "OK" || echo "FAIL"
+		;;
+	stop)
+		printf "Stopping network: "
+		/sbin/ifdown -a
+		[ $? = 0 ] && echo "OK" || echo "FAIL"
+		;;
+	restart|reload)
+		"$0" stop
+		"$0" start
+		;;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac
+
+exit $?
+

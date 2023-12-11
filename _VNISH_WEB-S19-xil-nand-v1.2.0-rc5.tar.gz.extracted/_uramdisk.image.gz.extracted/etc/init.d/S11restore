@@ -1,0 +1,95 @@
+#!/bin/sh
+#
+# Restores miner configs from factory defaults
+#
+
+CONF=/mnt/config
+DATA=/mnt/data
+FACTORY=/etc/factory
+NAND=/mnt/nand-config
+
+restore_from_dir() {
+	dir=$1
+
+	if [ ! -f "$CONF/system.conf" ] && [ -f "$dir/system.conf" ]; then
+		cp "$dir/system.conf" "$CONF"
+	fi
+
+	if [ ! -f "$CONF/network.conf" ] && [ -f "$dir/network.conf" ]; then
+		cp "$dir/network.conf" "$CONF"
+	fi
+
+	if [ ! -f "$CONF/mac" ] && [ -f "$dir/mac" ]; then
+		cp "$dir/mac" "$CONF"
+	fi
+
+	if [ ! -f "$CONF/ssh.conf" ] && [ -f "$dir/ssh.conf" ]; then
+		cp "$dir/ssh.conf" "$CONF"
+	fi
+
+	if [ ! -f "$CONF/dashd.conf" ] && [ -f "$dir/dashd.conf" ]; then
+		cp "$dir/dashd.conf" "$CONF"
+	fi
+
+	if [ ! -f "$CONF/password" ] && [ -f "$dir/password" ]; then
+		cp "$dir/password" "$CONF"
+	fi
+
+	if [ ! -f "$CONF/cgminer.conf" ] && [ -f "$dir/cgminer.conf" ]; then
+		cp "$dir/cgminer.conf" $CONF
+	fi
+
+	if [ ! -f "$CONF/hotelfee.json" ] && [ -f "$dir/hotelfee.json" ]; then
+		cp "$dir/hotelfee.json" $CONF
+	fi
+}
+
+config_from_sd() {
+	grep -qs "/dev/mmcblk0p2 " /proc/mounts
+}
+
+mount_nand_config() {
+	{ mkdir -p "$NAND" \
+		&& ubiattach -m 2 -d 1 \
+		&& mount -t ubifs ubi1_0 "$NAND" -o noexec ; } > /dev/null 2>&1
+}
+
+umount_nand_config() {
+	{ umount "$NAND" \
+		&& ubidetach -d 1 \
+		&& rm -rf "$NAND" ; } > /dev/null 2>&1
+}
+
+restore() {
+	# Try to restore cgminer.conf from NAND first
+	if config_from_sd && [ ! -f "$CONF/.ignore-nand" ]; then
+		if mount_nand_config; then
+			restore_from_dir "$NAND"
+			umount_nand_config
+			touch "$CONF/.ignore-nand"
+		fi
+	fi
+
+	restore_from_dir "$FACTORY"
+
+	if config_from_sd; then
+		# Grant ownership to miner user
+		# and set proper file permissions
+		chown -R miner:miner "$CONF"
+		chmod -R u+rw,g+r,a-x "$CONF"
+	fi
+
+	sync
+}
+
+case "$1" in
+	start)
+		restore;;
+	stop)
+		:;;
+	*)
+		echo "Usage: $0 {start|stop}"
+		exit 1
+esac
+
+exit $?

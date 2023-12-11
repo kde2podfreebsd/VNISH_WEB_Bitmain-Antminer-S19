@@ -1,0 +1,68 @@
+#!/bin/sh
+#
+# Starts dashboard daemon
+#
+
+NAME=dashd
+DAEMON=/usr/bin/dashd
+PIDFILE=/var/run/dashd.pid
+DASHD_ARGS="--config-dir=/config
+            --default-config-dir=/etc/factory
+            --miner-executable-name=cgminer
+            --static-root=/usr/share/dashd/ui
+            --listen=0.0.0.0:80
+            --cgminer-api=127.0.0.1:4029
+            --cgminer-api-timeout=3000
+            --log-directory=/var/log/dashd
+            --miner-status-log-file=/var/log/miner/status
+            --miner-driver-log-file=/var/log/miner/driver
+            --miner-autotune-log-file=/var/log/miner/autotune
+            --system-messages-log-file=/var/log/messages"
+
+start() {
+	printf "Starting %s: " $NAME
+	# Create log directory
+	[ ! -d /var/log/dashd ] && mkdir -p /var/log/dashd
+	[ ! -d /tmp/update ] && mkdir -p /tmp/update
+
+	start-stop-daemon -S -q -b -m -p "$PIDFILE" \
+		-x $DAEMON -- $DASHD_ARGS
+	sleep 1
+
+	# Exit status is always 0 if background option is specified,
+	# so we should check if dashd process is running
+	pidof $NAME > /dev/null
+	status=$?
+	if [ $status -eq 0 ]; then
+		echo "OK"
+	else
+		echo "FAIL"
+	fi
+	return $status
+}
+
+stop() {
+	printf "Stopping %s: " $NAME
+	start-stop-daemon -K -q -p "$PIDFILE"
+	status=$?
+	if [ $status -eq 0 ]; then
+		echo "OK"
+	else
+		echo "FAIL"
+	fi
+	return $status
+}
+
+restart() {
+	stop
+	sleep 1
+	start
+}
+
+case "$1" in
+	start|stop|restart)
+		"$1";;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac

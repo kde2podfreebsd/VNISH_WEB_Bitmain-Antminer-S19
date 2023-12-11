@@ -1,0 +1,109 @@
+{
+  "miner_model": "s19pro-hydro",
+  "chips_per_chain": 180,
+  "chain_num": 4,
+  "max_voltage": 2160,
+  "min_voltage": 1700,
+  "default_voltage": 1850,
+  "max_voltage_stock_psu": 2160,
+  "min_fan_pwm": 10,
+  "min_target_temp": 20,
+  "max_target_temp": 90,
+  "available_cooling_modes": "ImmersOnly",
+  "basic_profiles_count": 14,
+  "profiles": [
+    {
+      "id": "3495",
+      "name": "3495 watt ~ 132 TH",
+      "freq": 375,
+      "volt": 18800
+    },
+    {
+      "id": "3635",
+      "name": "3635 watt ~ 136 TH",
+      "freq": 390,
+      "volt": 18900
+    },
+    {
+      "id": "3865",
+      "name": "3865 watt ~ 143 TH",
+      "freq": 405,
+      "volt": 19050
+    },
+    {
+      "id": "4200",
+      "name": "4200 watt ~ 149 TH",
+      "freq": 420,
+      "volt": 19200
+    },
+    {
+      "id": "4250",
+      "name": "4250 watt ~ 154 TH",
+      "freq": 435,
+      "volt": 19350
+    },
+    {
+      "id": "4400",
+      "name": "4400 watt ~ 160 TH",
+      "freq": 450,
+      "volt": 19500
+    },
+    {
+      "id": "4650",
+      "name": "4650 watt ~ 166 TH",
+      "freq": 465,
+      "volt": 19650
+    },
+    {
+      "id": "4855",
+      "name": "4855 watt ~ 171 TH",
+      "freq": 480,
+      "volt": 19800
+    },
+    {
+      "id": "5150",
+      "name": "5150 watt ~ 177 TH",
+      "freq": 495,
+      "volt": 20000
+    },
+    {
+      "id": "5415",
+      "name": "5415 watt ~ 183 TH",
+      "freq": 510,
+      "volt": 20250
+    },
+    {
+      "id": "5560",
+      "name": "5560 watt ~ 188 TH",
+      "freq": 525,
+      "volt": 20450
+    },
+    {
+      "id": "5725",
+      "name": "5725 watt ~ 193 TH",
+      "freq": 540,
+      "volt": 20800
+    },
+    {
+      "id": "6000",
+      "name": "6000 watt ~ 199 TH LC",
+      "freq": 555,
+      "volt": 20880
+    },
+    {
+      "id": "6400",
+      "name": "6400 watt ~ 205 TH LC",
+      "freq": 570,
+      "volt": 21230
+    }
+  ],
+  "min_freq": 50,
+  "max_freq": 1000,
+  "default_freq": 405,
+  "warn_freq": 800,
+  "default_fixed_fan_pwm": 100,
+  "default_target_chip_temp": 65,
+  "num_cores": 514,
+  "hr_measure": "GH/s",
+  "critical_chip_temp": 90
+}

@@ -1,0 +1,65 @@
+#!/bin/sh
+#
+# Starts cgminer
+#
+
+NAME=cgminer
+DAEMON=/usr/bin/cgminer
+PIDFILE=/var/run/cgminer.pid
+CGMINER_CONF=/config/cgminer.conf
+CGMINER_ARGS="--default-config $CGMINER_CONF"
+
+miner_running() {
+	pidof $NAME > /dev/null
+}
+
+start() {
+	printf "Starting %s: " $NAME
+	# Create log directory
+	[ ! -d /var/log/miner ] && mkdir -p /var/log/miner
+
+	# shellcheck disable=SC1091
+	. /usr/sbin/export_tz
+
+	start-stop-daemon -S -q -b -m -p "$PIDFILE" \
+		-x $DAEMON -- $CGMINER_ARGS
+	sleep 1
+
+	# Exit status is always 0 if background option is specified,
+	# so we should check if cgminer process is running
+	miner_running && echo "OK" || echo "FAIL"
+}
+
+stop() {
+	retry=1
+	printf "Stopping %s: " $NAME
+	start-stop-daemon -K -q -s INT -p "$PIDFILE"
+
+	# Wait for graceful shutdown
+	while [ "$retry" -le "10" ]; do
+		if ! miner_running; then
+			echo "OK"
+			return
+		fi
+		sleep 1
+		retry=$((retry+1))
+	done
+
+	killall -KILL $NAME > /dev/null
+	echo "KILLED"
+}
+
+restart() {
+	stop
+	sleep 1
+	start
+}
+
+case "$1" in
+	start|stop|restart)
+		"$1";;
+	*)
+		echo "Usage: $0 {start|stop|restart}"
+		exit 1
+esac
+
